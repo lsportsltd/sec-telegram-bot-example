@@ -1,8 +1,7 @@
-import client, { Twilio } from "twilio";
-import { MessageListInstanceCreateOptions } from "twilio/lib/rest/api/v2010/account/message";
 import { Fixture } from "../interfaces";
 
 import {
+  clearSession,
   getHighlightedFixturesFromState,
   getSession,
   newSession,
@@ -14,29 +13,50 @@ import {
   getHighlightedFixtures,
   sendChatMessage,
 } from "../sports-expert-chat/secHandler";
+import { Context, NarrowedContext, Telegraf } from "telegraf";
+import { Update, Message } from "telegraf/types";
+import { message } from "telegraf/filters";
+// sdas
 
-let accountSid = process.env.TWILIO_ACCOUNT_SID;
-let authToken = process.env.TWILIO_AUTH_TOKEN;
-let messagesClient: Twilio | null = null;
+let BOT_TOKEN = process.env.BOT_TOKEN;
+let BOT_PATH = "/telegram/" + BOT_TOKEN;
+let WEBHOOK_DOMAIN = process.env.WEBHOOK_DOMAIN;
+let bot: Telegraf | null = null;
 
-export function init() {
-  accountSid = process.env.TWILIO_ACCOUNT_SID;
-  authToken = process.env.TWILIO_AUTH_TOKEN;
+export async function init(app: any, _: any, done: any) {
+  BOT_TOKEN = process.env.BOT_TOKEN;
+  WEBHOOK_DOMAIN = process.env.WEBHOOK_DOMAIN;
+  BOT_PATH = "/telegram/" + BOT_TOKEN;
 
-  if (!accountSid || !authToken)
-    throw new Error("Twilio credentials not provided");
+  if (!BOT_TOKEN || !WEBHOOK_DOMAIN || !BOT_PATH)
+    throw new Error("Missing parameters!");
 
-  if (messagesClient) return;
+  if (bot) return;
 
-  messagesClient = client(accountSid, authToken);
-}
-
-export async function sendMessage(msg: MessageListInstanceCreateOptions) {
-  if (!messagesClient) throw new Error("Twilio client not initialized");
-  return await messagesClient.messages.create({
-    from: `whatsapp:${process.env.TWILIO_PHONE_NUMBER}`,
-    ...msg,
+  bot = new Telegraf(BOT_TOKEN);
+  const webhook = await bot.createWebhook({
+    domain: WEBHOOK_DOMAIN,
+    path: BOT_PATH,
   });
+
+  app.post(BOT_PATH, webhook);
+
+  bot.on(message("text"), async (ctx) => {
+    const response = await handleMessage(ctx);
+    await ctx.reply(response);
+  });
+
+  bot.command("quit", async (ctx) => {
+    clearSession(ctx.chat.id);
+    // Explicit usage
+    await ctx.telegram.leaveChat(ctx.message.chat.id);
+
+    // Using context shortcut
+    await ctx.leaveChat();
+  });
+
+  bot.launch();
+  done();
 }
 
 export function buildRandomFixturesMsg(fixtures: Fixture[]) {
@@ -53,10 +73,23 @@ export function buildRandomFixturesMsg(fixtures: Fixture[]) {
   );
 }
 
-export async function handleMessage(msg: string, from: string) {
-  let response =
-    "Please select a fixture by replying with the number of the fixture, or press `#` to restart the session";
-  let currentSession = getSession(from);
+export async function handleMessage(
+  ctx: NarrowedContext<
+    Context<Update>,
+    {
+      message: Update.New & Update.NonChannel & Message.TextMessage;
+      update_id: number;
+    }
+  >
+) {
+  const msg = ctx.message.text;
+  const userFirstName = ctx.message.from.first_name;
+  // const username = ctx.message.from.username;
+  // const userId = ctx.message.from.id;
+  const chatId = ctx.message.chat.id;
+
+  let response = `Hello ${userFirstName}, please select a fixture by replying with the number of the fixture, or press "#" to restart the session`;
+  let currentSession = getSession(chatId);
   let fixtures = getHighlightedFixturesFromState();
 
   // if there are no fixtures, get some from the API
@@ -66,8 +99,8 @@ export async function handleMessage(msg: string, from: string) {
   }
 
   // if the user is new, create a new session for them and send them the fixtures
-  if (!currentSession || msg === "#") {
-    currentSession = newSession(from);
+  if (!currentSession || ctx.message.text === "#") {
+    currentSession = newSession(chatId);
     return buildRandomFixturesMsg(fixtures);
   }
 
@@ -84,7 +117,7 @@ export async function handleMessage(msg: string, from: string) {
   // if the user has not selected a fixture, parse the message and select the fixture
   if (parseInt(msg) > 0 && parseInt(msg) <= fixtures.length) {
     const selectedFixture = fixtures[parseInt(msg)];
-    currentSession = updateSession(from, { selectedFixture });
+    currentSession = updateSession(chatId, { selectedFixture });
     response = `You have selected ${selectedFixture.participants[0].name} vs ${selectedFixture.participants[1].name}, at ${new Date(selectedFixture.date).toString()}.\nAsk me any question about the fixture, for example "Which team will win?" or "How many goals will be scored?"\nYou can always return to the fixture selection list by pressing "#"`;
   } else {
     return `Invalid selection. Please select a fixture by replying with the number of the fixture, or press "#" to restart the session`;

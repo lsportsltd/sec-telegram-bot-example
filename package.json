@@ -9,13 +9,13 @@
     "build": "rimraf dist && tsc",
     "start": "node dist/index.js"
   },
-  "author": "Matschik <mathieu.schimmerling@protonmail.com>",
+  "author": "DanielNetzer <daniel.n@lsports.eu>",
   "license": "MIT",
   "dependencies": {
     "@fastify/env": "^4.3.0",
     "@fastify/formbody": "^7.4.0",
     "fastify": "^4.26.2",
-    "twilio": "^5.0.1"
+    "telegraf": "^4.16.3"
   },
   "devDependencies": {
     "@types/node": "^20.11.30",

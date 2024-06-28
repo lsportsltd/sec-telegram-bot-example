@@ -1,6 +1,6 @@
 [![LSports](https://cdn-assets-eu.frontify.com/s3/frontify-enterprise-files-eu/eyJwYXRoIjoiYXdlc29tZS10bHZcL2ZpbGVcL0p3S3dweU5Ub2pDQld3d3l5YTdkLnBuZyJ9:awesome-tlv:s5wJjkZJhYz_mhMs6SmsJeoRZWoxuvrOPGrNMUQP1tU?width=2400)](https://www.lsports.eu)
 # Sports Expert Chat
-## _WhatsApp Demo_
+## _Telegram Bot Example_
 
 LSports is introducing a revolutionary AI-based large language model to the world of sports betting with SEC (Sports Expert Chat). Powered by technology similar to ChatGPT, SEC is a cutting-edge interactive chatbot and sports data hub designed to operate as a personal sports advisor for bettors. It's specifically crafted to assist sportsbooks in addressing the challenge of attracting new customers and increasing retention rates.
 
@@ -24,19 +24,13 @@ This demo uses a number of open source projects to work properly:
 - [node.js] - evented I/O for the backend
 - [ngrok] - local network tunneling
 
-And [Twilio](https://twilio.com) as the communication platform that integrates with WhatsApp.
+And [Telegram](https://telegram.org/) as the communication platform.
 
 ## Prerequisites
 
-To use this demo, you need to create a sandbox account on Twilio. Follow these steps:
+To use this demo, TODO. Follow these steps:
 
-1. Go to the [Twilio website](https://www.twilio.com/) and sign up for an account if you don't have one already.
-2. Once you're logged in, navigate to the [Twilio Console](https://www.twilio.com/console).
-3. In the left sidebar, click on "Messaging" and then select "Try it out" and then "Send a WhatsApp message".
-4. Follow the steps, create a sandbox number and verify.
-5. Go to "Sandbox settings", and in the "When a message comes in" field put the ngrok tunnel url, and for the "Method" use "POST".
-
-You will also need a working Sports Expert Chat account, which you can get from our sales team here at LSports, contact them via sales@lsports.eu and ask for one.
+1. TODO
 
 ## Installation
 
@@ -46,7 +40,7 @@ Install the dependencies and devDependencies and start the server.
 
 ```bash
 clone https://github.com/lsportsltd/sec-whatsapp-example
-cd sec-whatsapp-example
+cd sec-telegram-bot-example
 npm i
 ```
 
@@ -86,5 +80,5 @@ Enjoy!
 
    [Fastify]: <https://github.com/fastify/fastify>
    [node.js]: <http://nodejs.org>
-   [Twilio]: <https://twilio.com>
+   [Telegram]: <https://telegram.org>
    [ngrok]: <https://ngrok.com>

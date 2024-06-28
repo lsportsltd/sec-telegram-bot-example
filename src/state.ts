@@ -10,21 +10,21 @@ let sessionStore: {
 };
 
 export interface UserSession {
-  callerId: string | null;
+  chatId: number | null;
   selectedFixture: Fixture | null;
 }
 
-export function getSession(callerId: string) {
-  return sessionStore.sessions[callerId];
+export function getSession(chatId: number) {
+  return sessionStore.sessions[chatId];
 }
 
-export function newSession(callerId: string) {
-  sessionStore.sessions[callerId] = {
-    callerId,
+export function newSession(chatId: number) {
+  sessionStore.sessions[chatId] = {
+    chatId,
     selectedFixture: null,
   };
 
-  return sessionStore.sessions[callerId];
+  return sessionStore.sessions[chatId];
 }
 
 export function getHighlightedFixturesFromState() {
@@ -36,11 +36,15 @@ export function updateHighlightedFixtures(fixtures: Fixture[]) {
   return sessionStore.randomFixtures;
 }
 
+export function clearSession(chatId: number) {
+  delete sessionStore.sessions[chatId];
+}
+
 export function updateSession(
-  callerId: string,
+  chatId: number,
   partialSession: Partial<UserSession>
 ) {
-  const state = sessionStore.sessions[callerId];
-  sessionStore.sessions[callerId] = { ...state, ...partialSession };
-  return sessionStore.sessions[callerId];
+  const state = sessionStore.sessions[chatId];
+  sessionStore.sessions[chatId] = { ...state, ...partialSession };
+  return sessionStore.sessions[chatId];
 }

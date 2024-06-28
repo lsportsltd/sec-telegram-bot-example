@@ -1,22 +1,17 @@
 const envSchema = {
   type: "object",
-  required: [
-    "TWILIO_ACCOUNT_SID",
-    "TWILIO_AUTH_TOKEN",
-    "TWILIO_PHONE_NUMBER",
-    "SEC_API_TOKEN",
-  ],
+  required: ["BOT_TOKEN", "SEC_API_TOKEN", "WEBHOOK_DOMAIN", "FASTIFY_PORT"],
   properties: {
-    TWILIO_ACCOUNT_SID: {
+    FASTIFY_PORT: {
       type: "string",
     },
-    TWILIO_AUTH_TOKEN: {
-      type: "string",
-    },
-    TWILIO_PHONE_NUMBER: {
+    BOT_TOKEN: {
       type: "string",
     },
     SEC_API_TOKEN: {
+      type: "string",
+    },
+    WEBHOOK_DOMAIN: {
       type: "string",
     },
   },

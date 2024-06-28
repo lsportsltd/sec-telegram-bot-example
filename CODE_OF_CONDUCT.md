@@ -1,6 +1,6 @@
 # Code of Conduct
 
-All participants of sec-whatsapp-example are expected to abide by our Code of Conduct, both online and during in-person events that are hosted and/or associated with sec-whatsapp-example.
+All participants of sec-telegram-bot-example are expected to abide by our Code of Conduct, both online and during in-person events that are hosted and/or associated with sec-telegram-bot-example.
 
 ## Our Pledge
 
