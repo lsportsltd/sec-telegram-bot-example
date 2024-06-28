@@ -41,18 +41,15 @@ export async function init(app: any, _: any, done: any) {
 
   app.post(BOT_PATH, webhook);
 
-  bot.on(message("text"), async (ctx) => {
+  bot.command("restart", async (ctx) => {
+    clearSession(ctx.chat.id);
     const response = await handleMessage(ctx);
     await ctx.reply(response);
   });
 
-  bot.command("quit", async (ctx) => {
-    clearSession(ctx.chat.id);
-    // Explicit usage
-    await ctx.telegram.leaveChat(ctx.message.chat.id);
-
-    // Using context shortcut
-    await ctx.leaveChat();
+  bot.on(message("text"), async (ctx) => {
+    const response = await handleMessage(ctx);
+    await ctx.reply(response);
   });
 
   bot.launch();
