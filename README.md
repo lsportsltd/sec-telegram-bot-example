@@ -6,7 +6,7 @@ LSports is introducing a revolutionary AI-based large language model to the worl
 
 SEC provides actionable insights and guidance to bettors by offering data-driven tips, essential event details, live updates, weather forecasts, and comprehensive statistics. This empowers end-users to make informed decisions and enhances their loyalty to the platform, eventually leading to higher turnover rates for bookies.
 
-[![LSports SEC](https://github.com/lsportsltd/sec-whatsapp-example/blob/main/assets/example.png)](https://www.lsports.eu/sec/)
+[![LSports SEC](https://github.com/lsportsltd/sec-telegram-bot-example/blob/main/assets/example.png)](https://www.lsports.eu/sec/)
 
 ## Features
 
@@ -20,7 +20,7 @@ SEC provides actionable insights and guidance to bettors by offering data-driven
 
 This demo uses a number of open source projects to work properly:
 
-- [Fastify] - HTML enhanced for web apps!
+- [Fastify] - fast and low overhead web framework
 - [node.js] - evented I/O for the backend
 - [ngrok] - local network tunneling
 
@@ -39,7 +39,7 @@ This demo requires [Node.js](https://nodejs.org/) v18+ to run.
 Install the dependencies and devDependencies and start the server.
 
 ```bash
-clone https://github.com/lsportsltd/sec-whatsapp-example
+clone https://github.com/lsportsltd/sec-telegram-bot-example
 cd sec-telegram-bot-example
 npm i
 ```
