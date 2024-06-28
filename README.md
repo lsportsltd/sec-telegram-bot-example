@@ -23,14 +23,22 @@ This demo uses a number of open source projects to work properly:
 - [Fastify] - fast and low overhead web framework
 - [node.js] - evented I/O for the backend
 - [ngrok] - local network tunneling
+- [telegraf] - Telegram nodejs SDK
 
 And [Telegram](https://telegram.org/) as the communication platform.
 
 ## Prerequisites
 
-To use this demo, TODO. Follow these steps:
+To use this demo, you need to create a Telegram bot token. Follow these steps:
 
-1. TODO
+1. Go to the [Telegram web](https://web.telegram.org/) and sign up for an account if you don't have one already.
+2. Once you're logged in, search for @botfather.
+3. Start a conversation with BotFather by clicking on the Start button.
+4. Type /newbot, and follow the prompts to set up a new bot. The BotFather will give you a token that you will use to authenticate your bot and grant it access to the Telegram API.
+
+*Note: Make sure you store the token securely. Anyone with your token access can easily manipulate your bot.*
+
+You will also need a working Sports Expert Chat account, which you can get from our sales team here at LSports, contact them via sales@lsports.eu and ask for one.
 
 ## Installation
 
@@ -71,7 +79,7 @@ Third Tab:
 ngrok localhost 3006
 ```
 
-Create a `.env` file in the root of the project, use the same keys you have in `.env.example` and put in them the values from Twilio and LSports SEC.
+Create a `.env` file in the root of the project, use the same keys you have in `.env.example` and put in them the values from ngrok, Telegram and LSports SEC.
 Enjoy!
 
 **Reach out to LSports today to start using SEC on your product today at sales@lsports.eu**
@@ -81,4 +89,5 @@ Enjoy!
    [Fastify]: <https://github.com/fastify/fastify>
    [node.js]: <http://nodejs.org>
    [Telegram]: <https://telegram.org>
+   [Telegraf]: <https://github.com/telegraf/telegraf>
    [ngrok]: <https://ngrok.com>
