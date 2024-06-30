@@ -16,9 +16,9 @@ export function buildTipsMessage(tips: Tip[], selectedFixture: Fixture) {
 }
 
 export async function getHighlightedFixtures(): Promise<RandomFixtures> {
-  // const body = JSON.stringify({
-  //   Leagues: ["Euro"],
-  // });
+  const body = JSON.stringify({
+    Leagues: ["Euro"],
+  });
 
   const response = await fetch(
     "https://sec-gw.lsports.eu/fixtures/api/v1/fixtures",
@@ -27,8 +27,8 @@ export async function getHighlightedFixtures(): Promise<RandomFixtures> {
         authorization: `Bearer ${secApiToken}`,
         "content-type": "application/json",
       },
-      // method: "POST",
-      // body,
+      method: "POST",
+      body,
     }
   );
 
