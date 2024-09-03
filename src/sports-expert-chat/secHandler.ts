@@ -17,7 +17,6 @@ export function buildTipsMessage(tips: Tip[], selectedFixture: Fixture) {
 
 export async function getHighlightedFixtures(): Promise<RandomFixtures> {
   const body = JSON.stringify({
-    Leagues: ["Euro"],
   });
 
   const response = await fetch(
@@ -37,10 +36,11 @@ export async function getHighlightedFixtures(): Promise<RandomFixtures> {
 
 export async function sendChatMessage(
   msg: string,
-  fixture: Fixture
+  fixture: Fixture,
+  history: Record<string, string[]>
 ): Promise<ChatAnswer> {
-  const body = JSON.stringify({ Prompt: msg, Fixture: fixture });
-  const response = await fetch("https://sec-gw.lsports.eu/chat/api/v1/chat", {
+  const body = JSON.stringify({ Prompt: msg, Fixture: fixture, History: history  });
+  const response = await fetch("https://sec-gw.lsports.eu/chat/api/v2/chat", {
     headers: {
       authorization: `Bearer ${secApiToken}`,
       "content-type": "application/json",
