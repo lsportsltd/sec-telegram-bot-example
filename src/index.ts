@@ -2,7 +2,7 @@ import app from "./app";
 import { init as messageHandlerInit } from "./messaging/messageHandler";
 import { init as secHandlerInit } from "./sports-expert-chat/secHandler";
 
-const FASTIFY_PORT = Number(process.env.FASTIFY_PORT) || 3006;
+let FASTIFY_PORT = Number(process.env.FASTIFY_PORT) || 3006;
 
 const initialize = async () => {
   app.register(messageHandlerInit, { prefix: "/telegram" });
